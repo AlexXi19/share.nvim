@@ -9,6 +9,11 @@ local function create(content)
     end
 
     local file_extension = vim.fn.expand("%:e")
+    -- The server does not support typescript, so we convert it to javascript
+    if file_extension == "ts" then
+        file_extension = "js"
+    end
+
     local url, err = core.create_share(file_extension, content)
     if not url then return end
 
